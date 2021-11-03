@@ -9,6 +9,9 @@ class User(AbstractUser):
     password = models.CharField(max_length=255,unique=True)
     username = None
 
+    class Meta:
+        abstract = False
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELD = []
 
