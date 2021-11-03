@@ -12,6 +12,18 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+
+# adding config
+cloudinary.config(
+  cloud_name = 'bermard2030',
+  api_key = '372829562127799',
+  api_secret = '-l-gRj-0LwQ7xLfnPWRE7DHfBu8',
+)
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -78,8 +90,10 @@ WSGI_APPLICATION = 'productsbackend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE':  'django.db.backends.postgresql_psycopg2',
+        'NAME':  'products',
+        'USER': 'moringa',
+        'PASSWORD': 'Access',
     }
 }
 
