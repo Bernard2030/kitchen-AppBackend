@@ -29,7 +29,7 @@ class LoginView(APIView):
         if not user.check_password(password):
             raise AuthenticationFailed('incorrect password')  
 
-        return Response(user)      
+        return Response({'message':'message'})      
 
 
         
