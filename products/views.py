@@ -1,11 +1,18 @@
-from django.shortcuts import render
 from django.db.models import Q
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from .models import Product,Category
+
+from .models import Product,Category,Order,OderItem
 from .serializers import ProductSerializer, CategorySerializer
+# for order class
+from django.conf import settings
+from django.contrib.auth.models import User
+from django.shortcuts import render
+from rest_framework import status, authentication,permissions
+from rest_framework.decorators import api_view,authentication_classes,parser_classes
+
+
 
 # Create your views here.
 class LatestProductList(APIView):
