@@ -4,13 +4,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .models import Product,Category,Order,OderItem
-from .serializers import ProductSerializer, CategorySerializer
+from .serializers import ProductSerializer, CategorySerializer,OrderSerializer,MyOderSerializer
 # for order class
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from rest_framework import status, authentication,permissions
-from rest_framework.decorators import api_view,authentication_classes,parser_classes
+from rest_framework.decorators import api_view,authentication_classes,parser_classes, permission_classes
 
 
 
@@ -56,3 +56,16 @@ class CategoryDetail(APIView):
 
         else:
             return Response({'products':[]})
+
+# order views
+
+class OrderList(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+
+    def get(self, request, form=None):
+        orders = Order.objects.filter(user=request.user)
+        serializer = MyOderSerializer(orders, many=True)
+
+        return Response(serializer.data)

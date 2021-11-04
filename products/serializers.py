@@ -27,7 +27,7 @@ class MyOderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id','firs_name','last_name','email','address','place','phone','stripe_token','items','paid_amount')
+        fields = ('id','firs_name','last_name','email','address','place','phone','items',)
 
 
 class OderItemSerializer(serializers.ModelSerializer):
@@ -40,7 +40,7 @@ class OderItemSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('id','first_name','last_name','email','address','place','phone','stripe_token','items',)
+        fields = ('id','first_name','last_name','email','address','place','phone','items',)
 
     def create(self, validated_data):
         items_data = validated_data.pop('items')
