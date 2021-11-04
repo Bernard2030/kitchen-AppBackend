@@ -3,7 +3,7 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import Product,Category,Order,OderItem
+from .models import Product,Category,Order
 from .serializers import ProductSerializer, CategorySerializer,OrderSerializer,MyOderSerializer
 # for order class
 from django.conf import settings
