@@ -96,8 +96,8 @@ DATABASES = {
     'default': {
         'ENGINE':  'django.db.backends.postgresql_psycopg2',
         'NAME':  'products',
-        'USER': 'developer',
-        'PASSWORD': 'developerwilson',
+        'USER': 'moringa',
+        'PASSWORD': 'Access',
     }
 }
 
