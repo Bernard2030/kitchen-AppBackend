@@ -37,11 +37,11 @@ cloudinary.config(
 
 
 # adding config
-# cloudinary.config(
-#   cloud_name = 'bermard2030',
-#   api_key = '372829562127799',
-#   api_secret = '-l-gRj-0LwQ7xLfnPWRE7DHfBu8',
-# )
+cloudinary.config(
+  cloud_name = 'bermard2030',
+  api_key = '372829562127799',
+  api_secret = '-l-gRj-0LwQ7xLfnPWRE7DHfBu8',
+)
 # setup cloudinary credentials for django-cloudinary
 cloudinary.config(
     cloud_name=config('CLOUDINARY_CLOUD_NAME'),
