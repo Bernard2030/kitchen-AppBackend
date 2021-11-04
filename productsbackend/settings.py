@@ -52,7 +52,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'users',
+    'products',
     'drf_yasg',
+    
     
 ]
 
@@ -118,7 +120,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 # MODEL AUTHENTICTION
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'users.User',
+AUTH_USER_MODEL = 'products.User'
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
         'Bearer': {
