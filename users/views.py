@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from rest_framework import generics, status, views, permissions
-from .serializers import RegisterSerializer, SetNewPasswordSerializer, ResetPasswordEmailRequestSerializer, EmailVerificationSerializer, LoginSerializer, LogoutSerializer
+from .serializers import RegisterSerializer, SetNewPasswordSerializer, ResetPasswordEmailRequestSerializer, EmailVerificationSerializer, UserSerializer, LogoutSerializer
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import User
+# from .models import User
+from django.contrib.auth.models import User
+
 from .utils import Util
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
@@ -22,16 +24,19 @@ from django.shortcuts import redirect
 from django.http import HttpResponsePermanentRedirect
 import os
 
+# authentication
+from django.contrib.auth import authenticate, login, logout
+
 
 class CustomRedirect(HttpResponsePermanentRedirect):
 
     allowed_schemes = [os.environ.get('APP_SCHEME'), 'http', 'https']
 
 
-
 class RegisterView(generics.CreateAPIView):
     permission_classes = ()
     serializer_class = RegisterSerializer
+
     def post(self, request, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -48,8 +53,8 @@ class RegisterView(generics.CreateAPIView):
                 {
                     'success_message': 'Account creation was successful',
                     'status': status.HTTP_201_CREATED,
-                    'refresh': user.tokens()['refresh'],
-                    'access': user.tokens()['access']
+                    # 'refresh': user.tokens()['refresh'],
+                    # 'access': user.tokens()['access']
                 }
             )
         else:
@@ -82,12 +87,25 @@ class VerifyEmail(views.APIView):
 
 
 class LoginAPIView(generics.GenericAPIView):
-    serializer_class = LoginSerializer
+    # serializer_class = LoginSerializer
 
-    def post(self, request):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    # def post(self, request):
+    #     serializer = self.serializer_class(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
+    def post(self, request, format=None):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                serializer = UserSerializer(user)
+                return Response(serializer.data)
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class RequestPasswordResetEmail(generics.GenericAPIView):
@@ -143,10 +161,9 @@ class PasswordTokenCheckAPI(generics.GenericAPIView):
             try:
                 if not PasswordResetTokenGenerator().check_token(user):
                     return CustomRedirect(redirect_url+'?token_valid=False')
-                    
+
             except UnboundLocalError as e:
                 return Response({'error': 'Token is not valid, please request a new one'}, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 class SetNewPasswordAPIView(generics.GenericAPIView):

@@ -70,3 +70,14 @@ class OrderList(APIView):
         serializer = MyOderSerializer(orders, many=True)
 
         return Response(serializer.data)
+
+
+# def search(request, category_slug):
+#     query = request.GET.get('q')
+#     if query:
+#         products = Product.objects.filter(Q(name_icontains=query)|Q(description_icontains=query)) 
+#         serializer = ProductSerializer(products, many=True)
+
+#         return render(request, 'products/search.html', {'products': serializer.data})
+#     else:
+#         return render(request, 'products/search.html', {'products': []})

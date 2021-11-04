@@ -96,8 +96,8 @@ DATABASES = {
     'default': {
         'ENGINE':  'django.db.backends.postgresql_psycopg2',
         'NAME':  'products',
-        'USER': 'moringa',
-        'PASSWORD': 'Access',
+        'USER': 'developer',
+        'PASSWORD': 'developerwilson',
     }
 }
 
@@ -120,8 +120,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 # MODEL AUTHENTICTION
-AUTH_USER_MODEL = 'users.User',
-AUTH_USER_MODEL = 'products.User'
+# AUTH_USER_MODEL = 'users.User',
+# AUTH_USER_MODEL = 'products.User'
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
         'Bearer': {
