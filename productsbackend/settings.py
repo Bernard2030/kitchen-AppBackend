@@ -42,13 +42,6 @@ cloudinary.config(
   api_key = '372829562127799',
   api_secret = '-l-gRj-0LwQ7xLfnPWRE7DHfBu8',
 )
-# setup cloudinary credentials for django-cloudinary
-cloudinary.config(
-    cloud_name=config('CLOUDINARY_CLOUD_NAME'),
-    api_key=config('CLOUDINARY_API_KEY'),
-    api_secret=config('CLOUDINARY_API_SECRET'),
-    secure=True
-)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
