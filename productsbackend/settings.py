@@ -66,7 +66,7 @@ SECRET_KEY = 'django-insecure-^01uk9jxxcpc209d+hzwg_$01pq2)crfluxmznfj=4a2+6+mj+
 # SECURITY WARNING: don't run with debug turned on in production!
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = os.environ.get('DEBUG', False)
 # development
 if config('MODE')=="dev":
    DATABASES = {
